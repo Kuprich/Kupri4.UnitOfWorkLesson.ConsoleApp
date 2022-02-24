@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Kupri4.UnitOfWorkLesson.ConsoleApp.Database.Migrations
 {
-    public partial class Initial_Migration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,7 +35,7 @@ namespace Kupri4.UnitOfWorkLesson.ConsoleApp.Database.Migrations
                     Building = table.Column<string>(type: "TEXT", nullable: false),
                     Flat = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Street = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    PersonId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    PersonId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,8 @@ namespace Kupri4.UnitOfWorkLesson.ConsoleApp.Database.Migrations
                         name: "FK_Address_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

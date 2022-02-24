@@ -45,7 +45,7 @@ namespace Kupri4.UnitOfWorkLesson.ConsoleApp.Database.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("PersonId")
+                    b.Property<Guid>("PersonId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Street")
@@ -115,9 +115,13 @@ namespace Kupri4.UnitOfWorkLesson.ConsoleApp.Database.Migrations
 
             modelBuilder.Entity("Kupri4.UnitOfWorkLesson.ConsoleApp.Models.Address", b =>
                 {
-                    b.HasOne("Kupri4.UnitOfWorkLesson.ConsoleApp.Models.Person", null)
+                    b.HasOne("Kupri4.UnitOfWorkLesson.ConsoleApp.Models.Person", "Person")
                         .WithMany("Adresses")
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Kupri4.UnitOfWorkLesson.ConsoleApp.Models.Pet", b =>

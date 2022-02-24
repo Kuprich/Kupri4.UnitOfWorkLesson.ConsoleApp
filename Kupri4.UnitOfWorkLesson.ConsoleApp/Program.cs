@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
-
 var host = Host.CreateDefaultBuilder()
     .ConfigureServices((hostContext, services) =>
     {
@@ -16,7 +14,7 @@ var host = Host.CreateDefaultBuilder()
             options.UseSqlite(connectionString);
         });
 
-        services.AddHostedService<App>();
+        services.AddTransient<App>();
     })
     .Build();
 
@@ -26,7 +24,7 @@ using (var scope = host.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
-        DbInitializer.Initialize(context);
+        await DbInitializer.Initialize(context);
     }
     catch (Exception)
     {
@@ -34,32 +32,4 @@ using (var scope = host.Services.CreateScope())
     }
 }
 
-await host.RunAsync();
-   
-    
-
-
-//IConfigurationBuilder builder = new ConfigurationBuilder()
-//    .AddJsonFile("appsettings.json", false, true);
-
-//var configuration = builder.Build();
-
-//ServiceCollection services = new();
-//ConfigureServices(services, configuration);
-
-//var serviceProvider = services.BuildServiceProvider();
-
-//serviceProvider.GetRequiredService<App>().Run();
-
-
-//static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
-//{
-//    string connectionString = configuration["DbConnection"];
-
-//    services.AddDbContext<ApplicationDbContext>(options =>
-//    {
-//        options.UseSqlite(connectionString);
-//    });
-
-//    services.AddTransient<App>();
-//}
+host.Services.GetRequiredService<App>().Run();

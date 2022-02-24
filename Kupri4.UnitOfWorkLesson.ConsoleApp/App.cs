@@ -1,19 +1,9 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿namespace Kupri4.UnitOfWorkLesson.ConsoleApp;
 
-namespace Kupri4.UnitOfWorkLesson.ConsoleApp
+internal class App
 {
-    internal class App : IHostedService
+    public void Run()
     {
-
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            Console.WriteLine("Hello");
-            return Task.CompletedTask;
-        }
-
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
-        }
+        Console.WriteLine(new string('@', 50));
     }
 }

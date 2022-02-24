@@ -9,4 +9,6 @@ public class Address
     public string Building { get; set; }
     public string Flat { get; set; }
     public string Street { get; set; }
+
+    public Person Person { get; set; }
 }
